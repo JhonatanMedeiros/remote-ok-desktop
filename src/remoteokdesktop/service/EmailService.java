@@ -52,7 +52,6 @@ public class EmailService {
 
             message.setContent(multipart);
 
-            System.out.println(message);
             Transport.send(message);
         } catch (Exception ex) {
             ex.printStackTrace();
