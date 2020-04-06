@@ -7,7 +7,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.rmi.Remote;
 import java.util.Properties;
 
 public class EmailService {
@@ -21,8 +20,8 @@ public class EmailService {
             prop.put("mail.smtp.port", "2525");
             prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
 
-            String username = "1db33e68036ffd";
-            String password = "c6c5fcf71b4588";
+            String username = "aeaedc77bc5549";
+            String password = "14b8bed8f05287";
             Session session = Session.getInstance(prop, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -53,6 +52,7 @@ public class EmailService {
 
             message.setContent(multipart);
 
+            System.out.println(message);
             Transport.send(message);
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -32,7 +32,8 @@ import static remoteokdesktop.util.StringUtils.formatDate;
 import static remoteokdesktop.util.StringUtils.getDescription;
 
 public class ListFrame extends JFrame {
-	private JPanel allListPanel = new WhitePanel(new MigLayout("fillx"));
+
+    private JPanel allListPanel = new WhitePanel(new MigLayout("fillx"));
     private JPanel likedListPanel = new WhitePanel(new MigLayout("fillx"));
     private JTextField searchField = new JTextField(25);
     private JPanel pagesPanel = new WhitePanel(new MigLayout(""));
@@ -42,7 +43,7 @@ public class ListFrame extends JFrame {
     private List<RemoteOkJob> currentShowingJobs = new ArrayList<>();
     private String email = "";
     private final Integer jobsPerPage = 50;
-	
+
     public ListFrame() {
         this.setTitle("RemoteOK");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +59,7 @@ public class ListFrame extends JFrame {
         this();
         this.email = email;
     }
-    
+
     public void createComponents() {
         try {
             this.setLayout(new MigLayout("fillx"));
@@ -73,8 +74,8 @@ public class ListFrame extends JFrame {
             this.add(searchPanel, "align center, wrap");
 
             JScrollPane allListScroller = new JScrollPane(allListPanel,
-                                                            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                                            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             allListScroller.getVerticalScrollBar().setUnitIncrement(20);
             allListScroller.setBackground(Color.WHITE);
 
@@ -107,9 +108,11 @@ public class ListFrame extends JFrame {
         footerPanel.removeAll();
         pagesPanel.removeAll();
         registryQtyPanel.removeAll();
-        for(int i = 0; i < Math.ceil(currentShowingJobs.size() / (double) jobsPerPage); i++) {
+        for (int i = 0; i < Math.ceil(currentShowingJobs.size() / (double) jobsPerPage); i++) {
             JLabel pageLabel = unboldLabel(String.format("%s", i + 1));
-            if(i == selected) bold(pageLabel);
+            if (i == selected) {
+                bold(pageLabel);
+            }
 
             pageLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pageLabel.setForeground(Color.BLUE);
@@ -117,7 +120,7 @@ public class ListFrame extends JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     JLabel label = (JLabel) e.getSource();
-                    if(!isBold(label)) {
+                    if (!isBold(label)) {
                         Arrays.asList(pagesPanel.getComponents()).forEach(ComponentUtils::unbold);
                         bold(label);
                         paintTab(searchField.getText(), Integer.parseInt(label.getText()) - 1);
@@ -137,9 +140,13 @@ public class ListFrame extends JFrame {
     private void paintTab(String searchText, Integer page) {
         int selectedIndex = tabbedPane.getSelectedIndex();
 
-        switch(selectedIndex) {
-            case 0: paintJobs(getJobs(searchText), page, false); break;
-            case 1: paintJobs(getLikedJobs(searchText), page, true); break;
+        switch (selectedIndex) {
+            case 0:
+                paintJobs(getJobs(searchText), page, false);
+                break;
+            case 1:
+                paintJobs(getLikedJobs(searchText), page, true);
+                break;
         }
     }
 
@@ -148,12 +155,12 @@ public class ListFrame extends JFrame {
     }
 
     private void paintLikedJobs(Integer page) {
-        paintJobs(getLikedJobs(null), page,true);
+        paintJobs(getLikedJobs(null), page, true);
     }
 
     private List<RemoteOkJob> getJobs(String filter) {
         List<RemoteOkJob> jobs = null;
-        if(nonNull(filter)) {
+        if (nonNull(filter)) {
             currentShowingJobs = jobs = RemoteOkUtils.getAll(filter);
         } else {
             currentShowingJobs = jobs = RemoteOkUtils.getAll();
@@ -163,7 +170,7 @@ public class ListFrame extends JFrame {
 
     private List<RemoteOkJob> getLikedJobs(String filter) {
         List<RemoteOkJob> jobs = null;
-        if(nonNull(filter) && !filter.isEmpty()) {
+        if (nonNull(filter) && !filter.isEmpty()) {
             currentShowingJobs = jobs = RemoteOkUtils.getLiked(filter);
         } else {
             currentShowingJobs = jobs = RemoteOkUtils.getLiked();
@@ -319,9 +326,9 @@ public class ListFrame extends JFrame {
     }
 
     private Icon getLogo(RemoteOkJob job) throws IOException, UnirestException {
-        if(nonNull(job.getLogoUrl())) {
+        if (nonNull(job.getLogoUrl())) {
             BufferedImage image = ImageIO.read(Unirest.get(job.getLogoUrl()).asBinary().getBody());
-            if(nonNull(image)) {
+            if (nonNull(image)) {
                 image = ComponentUtils.resize(image, 45, 45);
                 return new ImageIcon(image);
             }

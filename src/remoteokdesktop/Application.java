@@ -17,36 +17,33 @@ public class Application {
             if (SystemTray.isSupported()) {
                 SystemTray tray = SystemTray.getSystemTray();
                 Image image = Toolkit.getDefaultToolkit().getImage("imagem.jpeg");
-                
+
                 PopupMenu popup = new PopupMenu();
-                
 
-    
-    //ação de executar
-    ActionListener actionListener = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    }
-    };
-    //ação de sair
-     ActionListener sairListener = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    System.exit(0);
-    }
-    };     
-    //Opção executar
-     MenuItem executarItem = new MenuItem("Abrir");
-     executarItem.addActionListener(actionListener);
-     popup.add(executarItem);
-     TrayIcon trayIcon = new TrayIcon(image, "Remote OK", popup);
-     trayIcon.setImageAutoSize(true);
-    //Opção sair
-     MenuItem sairItem = new MenuItem("Sair");
-     sairItem.addActionListener(sairListener);
-     popup.add(sairItem);               
+                //ação de executar
+                ActionListener actionListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    }
+                };
+                //ação de sair
+                ActionListener sairListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                };
+                //Opção executar
+                MenuItem executarItem = new MenuItem("Abrir");
+                executarItem.addActionListener(actionListener);
+                popup.add(executarItem);
+                TrayIcon trayIcon = new TrayIcon(image, "Remote OK", popup);
+                trayIcon.setImageAutoSize(true);
+                //Opção sair
+                MenuItem sairItem = new MenuItem("Sair");
+                sairItem.addActionListener(sairListener);
+                popup.add(sairItem);
 
-            
                 try {
                     tray.add(trayIcon);
                 } catch (AWTException e) {

@@ -35,8 +35,9 @@ public class SharePanel extends JPanel {
 
                 JFrame frame = new JFrame("Enviar e-mail");
                 String email = JOptionPane.showInputDialog(frame, "Compartilhar com quem? (E-mail)");
-                if(nonNull(email) && !email.isEmpty()) {
-                    new Thread(() -> EmailService.sendEmail(remoteOkJob, email, email));
+                
+                if (!email.isEmpty()) {
+                    new Thread(() -> EmailService.sendEmail(remoteOkJob, email, email)).start();
                 }
             }
         });
