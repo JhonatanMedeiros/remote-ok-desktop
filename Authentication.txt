@@ -1,0 +1,5 @@
+{
+    "username": "remoteok",
+    "password": "remoteok",
+    "email": "remoteOkDesktop@remoteok.com"
+}
